@@ -12,3 +12,9 @@ jobs:
       - checkout
       - docker/install-docker-compose
       - docker-compose build
+
+# workflows
+workflows:
+  build-and-test:
+    jobs:
+      - build
