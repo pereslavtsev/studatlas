@@ -16,9 +16,8 @@ jobs:
 #          command: |
 #            docker-compose build
   deploy:
-    branches:
-      only:
-        - master
+    machine:
+      enabled: true
     steps:
       - checkout
       - add_ssh_keys:
@@ -35,4 +34,11 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
