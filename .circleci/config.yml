@@ -11,7 +11,9 @@ jobs:
     steps:
       - checkout
       - docker/install-docker-compose
-      - docker-compose build
+      - run:
+          command: |
+            docker-compose build
 
 # workflows
 workflows:
