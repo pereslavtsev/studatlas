@@ -28,7 +28,7 @@ jobs:
           name: fix host authenticity for production server
           command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
       - run:
-          command: ssh $SSH_USER@$SSH_HOST 'sh ~/studatlas/deploy.sh'
+          command: ssh $SSH_USER@$SSH_HOST 'git pull --rebase origin master && sh ~/studatlas/deploy.sh'
 
 # workflows
 workflows:
