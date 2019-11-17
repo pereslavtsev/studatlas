@@ -11,13 +11,34 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - docker/install-docker-compose
+#      - docker/install-docker-compose
+#      - run:
+#          command: |
+#            docker-compose build
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "a4:e7:26:36:2c:09:06:8b:8b:e9:c6:01:5b:9e:c9:2c"
       - run:
-          command: |
-            docker-compose build
+          name: fix host authenticity for production server
+          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - run:
+          command: ssh $SSH_USER@$SSH_HOST 'git pull --rebase origin master && sh ~/studatlas/deploy.sh'
 
 # workflows
 workflows:
-  build-and-test:
+  build-and-deploy:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+                - master
