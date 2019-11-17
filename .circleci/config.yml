@@ -9,6 +9,7 @@ jobs:
       name: docker/docker
       tag: '3.6'
     steps:
+      - setup_remote_docker
       - checkout
       - docker/install-docker-compose
       - run:
