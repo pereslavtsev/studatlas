@@ -23,9 +23,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "a4:e7:26:36:2c:09:06:8b:8b:e9:c6:01:5b:9e:c9:2c"
-      - run:
-          name: fix host authenticity for production server
-          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+#      - run:
+#          name: fix host authenticity for production server
+#          command: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
       - run:
           command: ssh $SSH_USER@$SSH_HOST 'git pull --rebase origin master && sh ~/studatlas/deploy.sh'
 
