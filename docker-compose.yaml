@@ -15,8 +15,8 @@ services:
     environment:
       - NODE_ENV
       - PORT=3000
-      - SERVICE_URL_AUTH=auth:50051
-      - SERVICE_URL_GRABBER=grabber:50052
+      - SERVICE_URL_AUTH=auth:5000
+      - SERVICE_URL_GRABBER=grabber:5000
     depends_on:
       - auth
       - grabber
@@ -24,8 +24,6 @@ services:
     image: pereslavtsev/studatlas-ms-auth:latest
     container_name: 'studatlas-ms-auth'
     restart: always
-    ports:
-      - 5000:50051
     environment:
       - NODE_ENV
       - AUTH0_DOMAIN
@@ -35,8 +33,6 @@ services:
     image: pereslavtsev/studatlas-ms-grabber:latest
     container_name: 'studatlas-ms-grabber'
     restart: always
-    ports:
-      - 5000:50052
     environment:
       - NODE_ENV
       - MONGODB_URI
