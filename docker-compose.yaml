@@ -8,13 +8,20 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
+      - ui
+  ui:
+    image: pereslavtsev/studatlas-ui:latest
+    container_name: 'studatlas-ui'
+    environment:
+      - NODE_ENV
+      - API_URL=core:3000/graphql
+    depends_on:
       - core
   core:
     image: pereslavtsev/studatlas-core:latest
     container_name: 'studatlas-core'
     environment:
       - NODE_ENV
-      - PORT=3000
       - SERVICE_URL_AUTH=auth:5000
       - SERVICE_URL_GRABBER=grabber:5000
     depends_on:
